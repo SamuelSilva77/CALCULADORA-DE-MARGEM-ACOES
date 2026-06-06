@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARGEM</title>
+
+    <!--LINKS-->
+
+    <link rel="stylesheet" href="estilo.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="content">
+
+            <div class="titulo">
+                <h1>Calculadora de Margem</h2>
+                <p>Compare o preço atual das ações com seu preço teto e descubra as melhores oportunidades de compra.</p>
+            </div>
+
+            <div class="status">
+
+                <div class="MiniCard">
+                    
+                    <div class="TemaEimg">
+                        <span>Total de ações</span>
+                        <img src="img/heartbeat.png" alt="">
+                    </div>
+                    
+                    <div class="DadoEsobre">
+                        <p id="TotalAçoes">10</p>
+                        <span>3 com cotação</span>
+                    </div>
+
+                </div>
+
+                <div class="MiniCard">
+                    
+                    <div class="TemaEimg">
+                        <span>Boas Oportunidades</span>
+                        <img src="img/up.png" alt="">
+                    </div>
+                    
+                    <div class="DadoEsobre">
+                        <p style="color: #11AD32;"> 2 </p>
+                        <span>Abaixo do preço teto</span>
+                    </div>
+
+                </div>
+
+                <div class="MiniCard">
+                    
+                    <div class="TemaEimg">
+                        <span>Acima do Teto</span>
+                        <img style="transform: rotateX(180deg);" src="img/down.png" alt="">
+                    </div>
+                    
+                    <div class="DadoEsobre">
+                        <p style="color: #E62B34;">5</p>
+                        <span>Aguardar queda</span>
+                    </div>
+
+                </div>
+
+                <div class="MiniCard">
+                    
+                    <div class="TemaEimg">
+                        <span>Melhor Oportunidade</span>
+                        <img src="img/target.png" alt="">
+                    </div>
+                    
+                    <div class="DadoEsobre">
+                        <p style="color: #11AD32;"> --- </p>
+                        <span>Nenhum em oportunidade</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="AddAcao">
+                <h2>Adicionar Nova Acão</h2>
+                
+                <form>
+                    <div class="inputs">
+                        <div>
+                            <label for="ticker">Ticker</label><br>
+                            <input type="text" id="ticker" placeholder="Ex: PETR4, VALE3" >
+                        </div>
+                        <div>
+                            <label for="precoTeto">Preço Teto (R$) </label><br>
+                            <input type="number" id="precoTeto" placeholder="Ex: 35,50">
+                        </div>
+                    </div>
+                    <div>
+                        <p id="aviso">Digite os valores Corretamente</p>
+
+                       <button onclick="adicionarAcao(event)" >+ Adicionar Ação</button>
+                    </div>
+
+                </form>
+            </div>
+            
+        </div>
+
+    </div>
+    
+</body>
+</html>
