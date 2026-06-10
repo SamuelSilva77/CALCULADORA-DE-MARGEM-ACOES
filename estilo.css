@@ -279,6 +279,7 @@ form button{
     justify-content: space-between;
 }
 
+
 .ativoNome{
     display: flex;
     justify-content: center;
@@ -311,3 +312,31 @@ form button{
 .ativoMargem label{
     color: var(--CorCinza);
 }   
+
+.ativoMargem img{
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.ativoMargem img:hover{
+    background-color: rgba(255, 0, 0, 0.189);
+}
+
+@media only screen and (max-width: 600px) {
+    .ativo{
+        padding: 15px 10px;
+    }
+
+    .ativo h3{
+        font-size: 17px;
+    }
+
+    .ativo p, label{
+        font-size: 15px;
+    }
+
+    .ativoMargem, .ativoNome{
+        gap: 10px;
+    }
+}
