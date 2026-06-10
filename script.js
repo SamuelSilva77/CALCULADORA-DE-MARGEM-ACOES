@@ -98,6 +98,8 @@ async function ExibirResultado() {
   let AbaixoTeto = document.getElementById("AbaixoTeto")
   let carasEbaratas = {caras: 0, baratas: 0}
 
+  let htmlMargem = document.getElementById("containerMargem");
+  htmlMargem.innerHTML = ""
 
   dados.forEach((index) => {
 
@@ -105,7 +107,8 @@ async function ExibirResultado() {
 
     index.MargemdeCompra = Number(calculo.toFixed(2))
 
-    document.getElementById("containerMargem").innerHTML += `
+
+    htmlMargem.innerHTML += `
               <div class="ativo">
 
                   <div class="ativoNome">                            
@@ -127,7 +130,7 @@ async function ExibirResultado() {
                           <h3> ${index.MargemdeCompra}% </h3>
                       </div>
 
-                      <img src="img/trash.png" alt="">
+                      <img src="img/trash.png" id="trash${index.ticker + index.MargemdeCompra}" alt="deletar" onmouseover="mudarTrash('trash${index.ticker + index.MargemdeCompra}')" onmouseout="mudarTrash('trash${index.ticker + index.MargemdeCompra}')">
                   </div>
 
               </div>
@@ -175,3 +178,20 @@ async function ExibirResultado() {
 }
 
 ExibirResultado()
+
+
+
+
+
+//FUNCAO QUE MUDA A IMAGEM DE DELETAR
+
+function mudarTrash(id){
+  let trash = document.getElementById(id)
+
+
+  if(trash.src == "http://127.0.0.1:5500/img/trash.png"){
+    trash.src = "img/trashred.png"
+  }else{
+    trash.src = "img/trash.png"
+  }
+}
