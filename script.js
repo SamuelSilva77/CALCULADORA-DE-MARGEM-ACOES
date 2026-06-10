@@ -1,25 +1,5 @@
-const precostetos = [
-  {
-    ticker: "BBSE3",
-    precoTeto: 42.27,
-  },
-  {
-    ticker: "SAPR4",
-    precoTeto: 9.39,
-  },
-  {
-    ticker: "BBAS3",
-    precoTeto: 25,
-  },
-  {
-    ticker: "TAEE4",
-    precoTeto: 15.76,
-  },
-  {
-    ticker: "ABCB4",
-    precoTeto: 29.51,
-  },
-];
+//PEGAR ARRAY SALVO NO STORAGE
+const precostetos = JSON.parse(localStorage.getItem("array")) || []
 
 //RETORNA API
 async function RetornarApi() {
@@ -62,10 +42,15 @@ async function adicionarAcao(e){
 
   if(encontrar && precoTeto){
     precostetos.push({ticker: encontrar.stock, precoTeto: precoTeto})
+
+    localStorage.setItem("array", JSON.stringify(precostetos))
     mgs.style.display = "none"
+
   }else{
     mgs.style.display = "flex"
   }
+
+  ExibirResultado()
 }
 
 //RETORNAR O ARRAY COM OS PREÇOS ATUAIS
@@ -78,11 +63,13 @@ async function ProcessarDados() {
         return item.ticker == valor.stock
     });
 
+
     const alteraçoes = {
         ticker: item.ticker,
         precoTeto: item.precoTeto,
         PrecoAtual: filtro.close,
-        compra: item.precoTeto > filtro.close ? true : false
+        compra: item.precoTeto > filtro.close ? true : false,
+        logo: filtro.logo
       }
 
 
@@ -94,26 +81,97 @@ async function ProcessarDados() {
 
 //CALCULAR MARGEM
 
-async function calcularMargem() {
+async function ExibirResultado() {
+
+  let boasvindas = document.querySelector(".boasvindas")
+
+  if(precostetos[0].ticker){
+    boasvindas.classList.add("sumir")
+  }else{
+    boasvindas.classList.remove("sumir")
+  }
+
   const dados = await ProcessarDados();
 
-  console.log(dados);
+
+  let AcimaTeto = document.getElementById("AcimaDoTeto")
+  let AbaixoTeto = document.getElementById("AbaixoTeto")
+  let carasEbaratas = {caras: 0, baratas: 0}
+
 
   dados.forEach((index) => {
 
     let calculo = ((index.precoTeto - index.PrecoAtual) / index.precoTeto) * 100;
 
-    index.MargemdeCompra = calculo.toFixed(2)
+    index.MargemdeCompra = Number(calculo.toFixed(2))
 
-    console.log(
-      "A margem de: " +
-        index.ticker +
-        " é de " +
-        calculo.toFixed(2) +
-        "%",
-    );
+    document.getElementById("containerMargem").innerHTML += `
+              <div class="ativo">
+
+                  <div class="ativoNome">                            
+                      <img src="${index.logo}" alt="">
+    
+                      <div>
+                          <h3> ${index.ticker} </h3>
+                          <p>Teto: ${index.precoTeto} R$</p>
+                      </div>
+                  </div>
+
+                    <div class="ativoMargem">
+                      <div>
+                          <label>Atual</label>
+                          <h3>R$ ${index.PrecoAtual} </h3>
+                      </div>
+                      <div>
+                          <label> Margem </label>
+                          <h3> ${index.MargemdeCompra}% </h3>
+                      </div>
+
+                      <img src="img/trash.png" alt="">
+                  </div>
+
+              </div>
+    `
+
+    //EXIBIR AS ACOES CARAS E BARATAS
+    
+
+    if(index.compra == false){
+      carasEbaratas.caras += 1
+    }else{
+      carasEbaratas.baratas += 1
+    }
+    
+    AcimaTeto.textContent = carasEbaratas.caras
+    AbaixoTeto.textContent = carasEbaratas.baratas
+    
+
   });
+  
+
+
+  //EXIBIR NO CARD O TOTAL DE ACOES
+  let totalAcoes = document.getElementById("TotalAçoes")
+  let TotalAçoesSpan = document.getElementById("TotalAçoesSpan")
+
+  TotalAçoesSpan.innerHTML = dados.length + " Ações com preço teto!"
+  totalAcoes.innerHTML = dados.length
+
+
+
+
+  //MELHOR OPORTUNIDADE
+  const melhor = dados.reduce((acum, item) => {
+
+    return acum.MargemdeCompra > item.MargemdeCompra ? acum : item
+
+  }, {MargemdeCompra: 0})
+  
+  let melhorId = document.getElementById("Melhor")
+  let melhorSpan = document.getElementById("melhorSpan")
+  
+  melhorId.innerHTML = melhor.ticker || "---"
+  melhorSpan.innerHTML = " + " + melhor.MargemdeCompra + "% de margem"
 }
 
-calcularMargem();
-
+ExibirResultado()

@@ -31,8 +31,8 @@
                     </div>
                     
                     <div class="DadoEsobre">
-                        <p id="TotalAçoes">10</p>
-                        <span>3 com cotação</span>
+                        <p id="TotalAçoes">0</p>
+                        <span id="TotalAçoesSpan">0 ações com preço teto!</span>
                     </div>
 
                 </div>
@@ -45,7 +45,7 @@
                     </div>
                     
                     <div class="DadoEsobre">
-                        <p style="color: #11AD32;"> 2 </p>
+                        <p style="color: #11AD32;" id="AbaixoTeto"> 0 </p>
                         <span>Abaixo do preço teto</span>
                     </div>
 
@@ -59,7 +59,7 @@
                     </div>
                     
                     <div class="DadoEsobre">
-                        <p style="color: #E62B34;">5</p>
+                        <p style="color: #E62B34;" id="AcimaDoTeto">0</p>
                         <span>Aguardar queda</span>
                     </div>
 
@@ -73,15 +73,15 @@
                     </div>
                     
                     <div class="DadoEsobre">
-                        <p style="color: #11AD32;"> --- </p>
-                        <span>Nenhum em oportunidade</span>
+                        <p style="color: #11AD32;" id="Melhor"> --- </p>
+                        <span id="melhorSpan">Nenhum em oportunidade</span>
                     </div>
 
                 </div>
             </div>
 
             <div class="AddAcao">
-                <h2>Adicionar Nova Acão</h2>
+                <h2>Adicionar Nova Ação</h2>
                 
                 <form>
                     <div class="inputs">
@@ -101,6 +101,71 @@
                     </div>
 
                 </form>
+            </div>
+
+
+            
+            <div class="SuasMargens">
+                <div class="tituloMargens">
+                    <h2>Suas Margens</h2>
+                    <button onclick="ExibirResultado()">Atualizar Todos</button>
+                </div>
+
+                <div class="containerMargem" id="containerMargem">
+
+
+                
+                
+                
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="boasvindas">
+                <h3>Bem-vindo ao Calculador de Margem!</h3>
+                
+                <br>
+                
+                <span>Aqui você pode monitorar suas ações e saber quando é um bom momento para comprar baseado no seu preço teto definido.</span>
+                
+                <br><br><br>
+                
+                <div class="boasvindasCard">
+
+                    <div>
+                        <img src="img/targetamarelo.png" alt="alvo">
+                        <h4>Defina seu teto</h4>
+                        <span>Informe o preço máximo que você está disposto a pagar por uma ação</span>
+                    </div>
+
+                    <div>
+                        <img src="img/trend.png" alt="alvo">
+                        <h4>Veja a Margem</h4>
+                        <span>Compare automaticamente com o preço atual e veja a margem de segurança</span>
+                    </div>
+
+                    <div>
+                        <img src="img/book (1).png" alt="alvo">
+                        <h4>Defina seu teto</h4>
+                        <span>Saiba quando comprar: margem positiva indica oportunidade de compra</span>
+                    </div>
+
+                </div>
+
+                <div class="comofunciona">
+                    <h4>Como funciona a margem?</h4>
+
+                    <p> <span style="color: #11AD32;">● Margem positiva:</span> O preço atual está ABAIXO do seu teto - boa oportunidade de compra! </p>
+                    <p> <span style="color: #E62B2E;">● Margem negativa:</span> O preço atual está ACIMA do seu teto - aguarde uma queda. </p>
+                </div>
+
             </div>
             
         </div>
