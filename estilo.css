@@ -104,6 +104,16 @@ body{
     .container{
         padding: 16px;
     }
+
+    .inputs{
+        margin: 10px 0;
+        flex-flow: column;
+        gap: 20px;
+    }
+
+    .boasvindasCard{
+        flex-flow: column;
+    }
 }
 
 
@@ -111,7 +121,7 @@ body{
 
 .AddAcao{
     width: 100%;
-    height: 250px;
+    min-height: 250px;
     border-radius: 10px;
     background-color: #0A0E11;
     display: flex;
@@ -145,6 +155,7 @@ form{
 }
 
 .inputs input{
+    margin: 5px 0;
     background-color: #171B1F;
     color: white;
     width: 95%;
@@ -171,3 +182,132 @@ form button{
     border-radius: 5px;
     width: 100%;
 }
+
+/*BOAS VINDAS E EXPLICAÇÃO */
+
+.boasvindas{
+    margin: 25px 0;
+    padding: 25px 20px;
+    background-color: #0A0E11;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.boasvindas span{
+    color: var(--CorCinza);
+    font-size: 15px;
+}
+
+.boasvindasCard{
+    display: flex;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.boasvindasCard div{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 15px;
+    background-color: #111518;
+    padding: 25px 20px;
+    border-radius: 10px;
+}
+
+.comofunciona{
+    background-color: #0E1215;
+    border-radius: 10px;
+    text-align: left;
+    padding: 25px 20px;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.sumir{
+    display: none;
+}
+
+
+/*CARD DE MARGENS */
+
+.SuasMargens{
+    box-shadow: 0 0 2px white;
+    padding: 25px 20px;
+    margin: 25px 0;
+    display: flex;
+    flex-flow: column;
+    background-color: #0A0E11;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.tituloMargens{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tituloMargens button{
+    border: none;
+    padding: 5px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 1px white, 
+    0 0 2px white;
+    color: white;
+    background-color: #040609;
+    transition: 0.2s;
+}
+
+.tituloMargens button:hover{
+    cursor: pointer;
+    color: black;
+    background: rgb(17, 17, 17);
+}
+
+.containerMargem{
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.ativo{
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow:  0 0 2px white;
+    background-color: #0B1E14;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ativoNome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.ativoNome h3{
+    letter-spacing: 1px;
+}
+
+.ativoNome img{
+    width: 50px;
+    padding: 12px;
+    background-color: rgba(255, 0, 0, 0.281);
+    border-radius: 10px;
+}
+
+.ativoNome p{
+    color: var(--CorCinza);
+}
+
+.ativoMargem{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.ativoMargem label{
+    color: var(--CorCinza);
+}   
