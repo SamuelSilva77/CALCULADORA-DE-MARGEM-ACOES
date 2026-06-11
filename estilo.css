@@ -186,11 +186,13 @@ form button{
 /*BOAS VINDAS E EXPLICAÇÃO */
 
 .boasvindas{
+
     margin: 25px 0;
     padding: 25px 20px;
     background-color: #0A0E11;
     border-radius: 10px;
     text-align: center;
+    color: white ;
 }
 
 .boasvindas span{
@@ -224,9 +226,6 @@ form button{
     gap: 10px;
 }
 
-.sumir{
-    display: none;
-}
 
 
 /*CARD DE MARGENS */
@@ -240,6 +239,10 @@ form button{
     background-color: #0A0E11;
     gap: 20px;
     border-radius: 10px;
+}
+
+.sumir{
+    display: none;
 }
 
 .tituloMargens{
@@ -258,9 +261,13 @@ form button{
     transition: 0.2s;
 }
 
+.tituloMargens button:active{
+    transform: translate(0, 3px);
+}
+
 .tituloMargens button:hover{
     cursor: pointer;
-    color: black;
+    
     background: rgb(17, 17, 17);
 }
 
@@ -338,5 +345,11 @@ form button{
 
     .ativoMargem, .ativoNome{
         gap: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .MiniCard, .AddAcao, .boasvindas, .SuasMargens{
+        padding: 20px 15px;
     }
 }
