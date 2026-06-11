@@ -25,6 +25,11 @@ async function RetornarApi() {
   }
 }
 
+
+
+
+
+
 //ADICIONAR AÇAO AO ARRAY
 
 async function adicionarAcao(e){
@@ -40,7 +45,17 @@ async function adicionarAcao(e){
     return item.stock == ticker.toUpperCase()
   })
 
-  if(encontrar && precoTeto){
+
+  const VerificarPessoal = precostetos.some((item) => {
+    if(encontrar){
+      return item.ticker == encontrar.stock
+    }else{
+      return true
+    }
+  })
+
+
+  if(encontrar && precoTeto && !VerificarPessoal){
     precostetos.push({ticker: encontrar.stock, precoTeto: precoTeto})
 
     localStorage.setItem("array", JSON.stringify(precostetos))
@@ -52,6 +67,10 @@ async function adicionarAcao(e){
 
   ExibirResultado()
 }
+
+
+
+
 
 //RETORNAR O ARRAY COM OS PREÇOS ATUAIS
 async function ProcessarDados() {
@@ -84,11 +103,14 @@ async function ProcessarDados() {
 async function ExibirResultado() {
 
   let boasvindas = document.querySelector(".boasvindas")
+  let suasMargens = document.querySelector(".SuasMargens")
 
-  if(precostetos[0].ticker){
+  if(precostetos[0]){
     boasvindas.classList.add("sumir")
+    suasMargens.classList.remove("sumir")
   }else{
     boasvindas.classList.remove("sumir")
+    suasMargens.classList.add("sumir")
   }
 
   const dados = await ProcessarDados();
@@ -109,7 +131,7 @@ async function ExibirResultado() {
 
 
     htmlMargem.innerHTML += `
-              <div class="ativo">
+              <div class="ativo" id="${index.ticker}">
 
                   <div class="ativoNome">                            
                       <img src="${index.logo}" alt="">
@@ -130,7 +152,7 @@ async function ExibirResultado() {
                           <h3> ${index.MargemdeCompra}% </h3>
                       </div>
 
-                      <img src="img/trash.png" id="trash${index.ticker + index.MargemdeCompra}" alt="deletar" onmouseover="mudarTrash('trash${index.ticker + index.MargemdeCompra}')" onmouseout="mudarTrash('trash${index.ticker + index.MargemdeCompra}')">
+                      <img src="img/trash.png" id="trash${index.ticker}" alt="deletar" onclick="deletar('${index.ticker}')" onmouseover="mudarTrash('trash${index.ticker}')" onmouseout="mudarTrash('trash${index.ticker}')">
                   </div>
 
               </div>
@@ -185,8 +207,8 @@ ExibirResultado()
 
 //FUNCAO QUE MUDA A IMAGEM DE DELETAR
 
-function mudarTrash(id){
-  let trash = document.getElementById(id)
+function mudarTrash(idTrash){
+  let trash = document.getElementById(idTrash)
 
 
   if(trash.src == "http://127.0.0.1:5500/img/trash.png"){
@@ -194,4 +216,21 @@ function mudarTrash(id){
   }else{
     trash.src = "img/trash.png"
   }
+}
+
+function deletar(id){
+
+  let ativo = document.getElementById(id)
+  ativo.remove()
+
+  precostetos.forEach((item, index) => {
+    if(item.ticker == id){
+      precostetos.splice(index, 1)
+      console.log(precostetos)
+    }
+  })
+
+  localStorage.setItem("array", JSON.stringify(precostetos))
+
+  ExibirResultado()
 }
