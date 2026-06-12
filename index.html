@@ -108,7 +108,7 @@
             <div class="SuasMargens">
                 <div class="tituloMargens">
                     <h2>Suas Margens</h2>
-                    <button onclick="ExibirResultado()">Atualizar Todos</button>
+                    <button onclick="ProcessarDados(ExibirResultado)">Atualizar Todos</button>
                 </div>
 
                 <div class="containerMargem" id="containerMargem">
@@ -163,6 +163,11 @@
 
                     <p> <span style="color: #11AD32;">● Margem positiva:</span> O preço atual está ABAIXO do seu teto - boa oportunidade de compra! </p>
                     <p> <span style="color: #E62B2E;">● Margem negativa:</span> O preço atual está ACIMA do seu teto - aguarde uma queda. </p>
+                </div>
+
+                <div class="addExemplo">
+                    <button onclick="addExemplo()">Adiconar Exemplos de Demonstração</button>
+                    <span>Ou adicione suas próprias ações usando o formulário acima</span>
                 </div>
 
             </div>

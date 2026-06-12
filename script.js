@@ -65,7 +65,7 @@ async function adicionarAcao(e){
     mgs.style.display = "flex"
   }
 
-  ExibirResultado()
+  ProcessarDados(ExibirResultado)
 }
 
 
@@ -73,7 +73,7 @@ async function adicionarAcao(e){
 
 
 //RETORNAR O ARRAY COM OS PREÇOS ATUAIS
-async function ProcessarDados() {
+async function ProcessarDados(callback) {
   const api = await RetornarApi();
 
   const result = precostetos.map((item) => {
@@ -95,12 +95,12 @@ async function ProcessarDados() {
     return alteraçoes
   });
 
-  return result;
+  callback(result)
 }
 
 //CALCULAR MARGEM
 
-async function ExibirResultado() {
+function ExibirResultado(dados) {
 
   let boasvindas = document.querySelector(".boasvindas")
   let suasMargens = document.querySelector(".SuasMargens")
@@ -112,8 +112,6 @@ async function ExibirResultado() {
     boasvindas.classList.remove("sumir")
     suasMargens.classList.add("sumir")
   }
-
-  const dados = await ProcessarDados();
 
 
   let AcimaTeto = document.getElementById("AcimaDoTeto")
@@ -167,12 +165,12 @@ async function ExibirResultado() {
       carasEbaratas.baratas += 1
     }
     
-    AcimaTeto.textContent = carasEbaratas.caras
-    AbaixoTeto.textContent = carasEbaratas.baratas
     
-
+    
   });
   
+  AcimaTeto.textContent = carasEbaratas.caras
+  AbaixoTeto.textContent = carasEbaratas.baratas
 
 
   //EXIBIR NO CARD O TOTAL DE ACOES
@@ -199,10 +197,20 @@ async function ExibirResultado() {
   melhorSpan.innerHTML = " + " + melhor.MargemdeCompra + "% de margem"
 }
 
-ExibirResultado()
+
+ProcessarDados(ExibirResultado)
 
 
 
+//ADICIONA EXEMPLOS PARA USUARIOS SEM PRECOS TETOS ADICIONADOS
+
+function addExemplo(){
+  precostetos.push({ticker: "PETR4", precoTeto: 40}, {ticker: "VALE3", precoTeto: 70}, {ticker: "ITUB4", precoTeto: 45})
+
+  localStorage.setItem("array", JSON.stringify(precostetos))
+
+  ProcessarDados(ExibirResultado)
+}
 
 
 //FUNCAO QUE MUDA A IMAGEM DE DELETAR
@@ -226,11 +234,10 @@ function deletar(id){
   precostetos.forEach((item, index) => {
     if(item.ticker == id){
       precostetos.splice(index, 1)
-      console.log(precostetos)
     }
   })
 
   localStorage.setItem("array", JSON.stringify(precostetos))
 
-  ExibirResultado()
+  ProcessarDados(ExibirResultado)
 }
