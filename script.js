@@ -1,5 +1,5 @@
 //PEGAR ARRAY SALVO NO STORAGE
-const precostetos = JSON.parse(localStorage.getItem("array")) || []
+const precostetos = JSON.parse(localStorage.getItem("tetos")) || []
 
 //RETORNA API
 async function RetornarApi() {
@@ -24,10 +24,6 @@ async function RetornarApi() {
     alert("ERRO " + err);
   }
 }
-
-
-
-
 
 
 //ADICIONAR AÇAO AO ARRAY
@@ -58,7 +54,7 @@ async function adicionarAcao(e){
   if(encontrar && precoTeto && !VerificarPessoal){
     precostetos.push({ticker: encontrar.stock, precoTeto: precoTeto})
 
-    localStorage.setItem("array", JSON.stringify(precostetos))
+    localStorage.setItem("tetos", JSON.stringify(precostetos))
     mgs.style.display = "none"
 
   }else{
@@ -67,8 +63,6 @@ async function adicionarAcao(e){
 
   ProcessarDados(ExibirResultado)
 }
-
-
 
 
 
@@ -97,6 +91,9 @@ async function ProcessarDados(callback) {
 
   callback(result)
 }
+
+
+
 
 //CALCULAR MARGEM
 
@@ -205,9 +202,17 @@ ProcessarDados(ExibirResultado)
 //ADICIONA EXEMPLOS PARA USUARIOS SEM PRECOS TETOS ADICIONADOS
 
 function addExemplo(){
+  let botao = document.getElementById("exemploButton")
+
+  botao.disabled = true
+
+  setInterval(() => {
+    botao.disabled = false
+  }, 1000)
+
   precostetos.push({ticker: "PETR4", precoTeto: 40}, {ticker: "VALE3", precoTeto: 70}, {ticker: "ITUB4", precoTeto: 45})
 
-  localStorage.setItem("array", JSON.stringify(precostetos))
+  localStorage.setItem("tetos", JSON.stringify(precostetos))
 
   ProcessarDados(ExibirResultado)
 }
@@ -237,7 +242,7 @@ function deletar(id){
     }
   })
 
-  localStorage.setItem("array", JSON.stringify(precostetos))
+  localStorage.setItem("tetos", JSON.stringify(precostetos))
 
   ProcessarDados(ExibirResultado)
 }
