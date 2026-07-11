@@ -99,99 +99,113 @@ async function ProcessarDados(callback) {
 
 function ExibirResultado(dados) {
 
-  let boasvindas = document.querySelector(".boasvindas")
-  let suasMargens = document.querySelector(".SuasMargens")
-
-  if(precostetos[0]){
-    boasvindas.classList.add("sumir")
-    suasMargens.classList.remove("sumir")
-  }else{
-    boasvindas.classList.remove("sumir")
-    suasMargens.classList.add("sumir")
-  }
-
-
-  let AcimaTeto = document.getElementById("AcimaDoTeto")
-  let AbaixoTeto = document.getElementById("AbaixoTeto")
-  let carasEbaratas = {caras: 0, baratas: 0}
+  let body = document.querySelector("body")
+  body.classList.toggle("loading")
 
   let htmlMargem = document.getElementById("containerMargem");
   htmlMargem.innerHTML = ""
 
-  dados.forEach((index) => {
+  setTimeout(() => {    
 
-    let calculo = ((index.precoTeto - index.PrecoAtual) / index.precoTeto) * 100;
-
-    index.MargemdeCompra = Number(calculo.toFixed(2))
-
-
-    htmlMargem.innerHTML += `
-              <div class="ativo" id="${index.ticker}">
-
-                  <div class="ativoNome">                            
-                      <img src="${index.logo}" alt="">
-    
-                      <div>
-                          <h3> ${index.ticker} </h3>
-                          <p>Teto: ${index.precoTeto} R$</p>
-                      </div>
-                  </div>
-
-                    <div class="ativoMargem">
-                      <div>
-                          <label>Atual</label>
-                          <h3>R$ ${index.PrecoAtual} </h3>
-                      </div>
-                      <div>
-                          <label> Margem </label>
-                          <h3> ${index.MargemdeCompra}% </h3>
-                      </div>
-
-                      <img src="img/trash.png" id="trash${index.ticker}" alt="deletar" onclick="deletar('${index.ticker}')" onmouseover="mudarTrash('trash${index.ticker}')" onmouseout="mudarTrash('trash${index.ticker}')">
-                  </div>
-
-              </div>
-    `
-
-    //EXIBIR AS ACOES CARAS E BARATAS
-    
-
-    if(index.compra == false){
-      carasEbaratas.caras += 1
+    let boasvindas = document.querySelector(".boasvindas")
+    let suasMargens = document.querySelector(".SuasMargens")
+  
+    if(precostetos[0]){
+      boasvindas.classList.add("sumir")
+      suasMargens.classList.remove("sumir")
     }else{
-      carasEbaratas.baratas += 1
+      boasvindas.classList.remove("sumir")
+      suasMargens.classList.add("sumir")
     }
-    
-    
-    
-  });
   
-  AcimaTeto.textContent = carasEbaratas.caras
-  AbaixoTeto.textContent = carasEbaratas.baratas
-
-
-  //EXIBIR NO CARD O TOTAL DE ACOES
-  let totalAcoes = document.getElementById("TotalAçoes")
-  let TotalAçoesSpan = document.getElementById("TotalAçoesSpan")
-
-  TotalAçoesSpan.innerHTML = dados.length + " Ações com preço teto!"
-  totalAcoes.innerHTML = dados.length
-
-
-
-
-  //MELHOR OPORTUNIDADE
-  const melhor = dados.reduce((acum, item) => {
-
-    return acum.MargemdeCompra > item.MargemdeCompra ? acum : item
-
-  }, {MargemdeCompra: 0})
   
-  let melhorId = document.getElementById("Melhor")
-  let melhorSpan = document.getElementById("melhorSpan")
+    let AcimaTeto = document.getElementById("AcimaDoTeto")
+    let AbaixoTeto = document.getElementById("AbaixoTeto")
+    let carasEbaratas = {caras: 0, baratas: 0}
   
-  melhorId.innerHTML = melhor.ticker || "---"
-  melhorSpan.innerHTML = " + " + melhor.MargemdeCompra + "% de margem"
+  
+  
+    dados.forEach((index) => {
+  
+      let calculo = ((index.precoTeto - index.PrecoAtual) / index.precoTeto) * 100;
+  
+      index.MargemdeCompra = Number(calculo.toFixed(2))
+  
+  
+      htmlMargem.innerHTML += `
+                <div class="ativo" id="${index.ticker}">
+  
+                    <div class="ativoNome">                            
+                        <img src="${index.logo}" alt="">
+      
+                        <div>
+                            <h3> ${index.ticker} </h3>
+                            <p>Teto: ${index.precoTeto} R$</p>
+                        </div>
+                    </div>
+  
+                      <div class="ativoMargem">
+                        <div>
+                            <label>Atual</label>
+                            <h3>R$ ${index.PrecoAtual} </h3>
+                        </div>
+                        <div>
+                            <label> Margem </label>
+                            <h3> ${index.MargemdeCompra}% </h3>
+                        </div>
+  
+                        <img src="img/trash.png" id="trash${index.ticker}" alt="deletar" onclick="deletar('${index.ticker}')" onmouseover="MudarTrash(${true},'trash${index.ticker}')" onmouseout="MudarTrash(${false}, 'trash${index.ticker}')">
+                    </div>
+  
+                </div>
+      `
+  
+      //EXIBIR AS ACOES CARAS E BARATAS
+      
+  
+      if(index.compra == false){
+        carasEbaratas.caras += 1
+      }else{
+        carasEbaratas.baratas += 1
+      }
+      
+      
+      
+    });
+    
+    AcimaTeto.textContent = carasEbaratas.caras
+    AbaixoTeto.textContent = carasEbaratas.baratas
+  
+  
+    //EXIBIR NO CARD O TOTAL DE ACOES
+    let totalAcoes = document.getElementById("TotalAçoes")
+    let TotalAçoesSpan = document.getElementById("TotalAçoesSpan")
+  
+    TotalAçoesSpan.innerHTML = dados.length + " Ações com preço teto!"
+    totalAcoes.innerHTML = dados.length
+  
+  
+  
+  
+    //MELHOR OPORTUNIDADE
+    const melhor = dados.reduce((acum, item) => {
+  
+      return acum.MargemdeCompra > item.MargemdeCompra ? acum : item
+  
+    }, {MargemdeCompra: 0})
+    
+    let melhorId = document.getElementById("Melhor")
+    let melhorSpan = document.getElementById("melhorSpan")
+    
+    melhorId.innerHTML = melhor.ticker || "---"
+    melhorSpan.innerHTML = " + " + melhor.MargemdeCompra + "% de margem"
+
+
+    body.classList.toggle("loading")
+
+  }, 300);
+
+
 }
 
 
@@ -206,7 +220,7 @@ function addExemplo(){
 
   botao.disabled = true
 
-  setInterval(() => {
+  setTimeout(() => {
     botao.disabled = false
   }, 1000)
 
@@ -220,11 +234,11 @@ function addExemplo(){
 
 //FUNCAO QUE MUDA A IMAGEM DE DELETAR
 
-function mudarTrash(idTrash){
+function MudarTrash(state, idTrash){
   let trash = document.getElementById(idTrash)
 
 
-  if(trash.src == "http://127.0.0.1:5500/img/trash.png"){
+  if(state == true){
     trash.src = "img/trashred.png"
   }else{
     trash.src = "img/trash.png"
@@ -241,6 +255,7 @@ function deletar(id){
       precostetos.splice(index, 1)
     }
   })
+  
 
   localStorage.setItem("tetos", JSON.stringify(precostetos))
 

@@ -378,3 +378,7 @@ form button{
 .addExemplo button:hover{
     background-color: #11ad33c5;
 }
+
+.loading{
+    cursor: progress;
+}
